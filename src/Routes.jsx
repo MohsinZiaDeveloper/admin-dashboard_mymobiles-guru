@@ -1,7 +1,10 @@
 import React from "react";
-import { Login, AdmiMainScreen } from "./screens/index";
+import { Login, AdmiMainScreen, Create } from "./screens/index";
+import { Outlet } from "react-router";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "./App";
+import { SideNavbar } from "./components";
 
 const MyRoutes = () => (
   <React.StrictMode>
@@ -9,8 +12,11 @@ const MyRoutes = () => (
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Login />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Admin" element={<AdmiMainScreen />} />
+          <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<SideNavbar />}>
+            <Route index element={<AdmiMainScreen />} />
+            <Route path="create" element={<Create />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

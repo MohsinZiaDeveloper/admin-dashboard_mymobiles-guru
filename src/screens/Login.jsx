@@ -31,7 +31,7 @@ const Login = () => {
       userCreds?.password === adminUser?.password
     ) {
       toast("Admin Login success");
-      navigate("/Admin");
+      navigate("/dashboard");
     } else {
       alert("Fail ! please check your credentials Thanks");
     }

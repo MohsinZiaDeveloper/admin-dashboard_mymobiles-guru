@@ -1,12 +1,10 @@
 import React from "react";
-import { SideNavbar } from "../components";
+import { Content, SideNavbar } from "../components";
 
 const AdminMainScreen = () => {
   return (
     <div>
-      <div>
-        <SideNavbar />
-      </div>
+      <Content />
     </div>
   );
 };
