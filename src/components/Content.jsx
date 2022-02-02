@@ -5,7 +5,11 @@ import { useNavigate } from "react-router";
 import { ImageAsset } from ".";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "id",
+    headerName: "ID",
+    width: 70,
+  },
   { field: "BrandName", headerName: "BrandName", width: 130 },
   { field: "RAM_ROM", headerName: "RAM_ROM", width: 130 },
   {
@@ -25,13 +29,22 @@ const columns = [
   },
   { field: "Location", headerName: "Location", width: 130 },
   { field: "ContactNo", headerName: "ContactNo", width: 130 },
+  // {
+  //   renderCell: (cellValues) => {
+  //     return (
+  //       <Button variant="contained" color="primary">
+  //         Go
+  //       </Button>
+  //     );
+  //   },
+  // },
 ];
 
 const rows = [
   {
     id: 1,
-    RAM_ROM: "Snow",
-    BrandName: "Jon",
+    RAM_ROM: "8GB",
+    BrandName: "Samsung",
     age: 35,
     Condition: "Good",
     Price: "25k",
@@ -40,53 +53,53 @@ const rows = [
   },
   {
     id: 2,
-    RAM_ROM: "Snow",
-    BrandName: "Jon",
+    RAM_ROM: "16Gb",
+    BrandName: "Oppo",
     age: 35,
-    Condition: "Good",
+    Condition: "Moderate",
     Price: "25k",
     Location: "Islamabad",
     ContactNo: "+92987654098",
   },
   {
     id: 3,
-    RAM_ROM: "Snow",
-    BrandName: "Jon",
+    RAM_ROM: "8GB",
+    BrandName: "Iphone",
     age: 35,
-    Condition: "Good",
-    Price: "25k",
-    Location: "Islamabad",
-    ContactNo: "+92987654098",
+    Condition: "Excellent",
+    Price: "125k",
+    Location: "Rawalpindi",
+    ContactNo: "+929098765498",
   },
   {
     id: 4,
-    RAM_ROM: "Snow",
-    BrandName: "Jon",
+    RAM_ROM: "4GB",
+    BrandName: "infinix",
     age: 35,
     Condition: "Good",
-    Price: "25k",
-    Location: "Islamabad",
-    ContactNo: "+92987654098",
+    Price: "5k",
+    Location: "Lahore",
+    ContactNo: "+929345654098",
   },
   {
     id: 5,
-    RAM_ROM: "Snow",
-    BrandName: "Jon",
+    RAM_ROM: "4/8GB",
+    BrandName: "Infinix",
     age: 35,
-    Condition: "Good",
-    Price: "25k",
-    Location: "Islamabad",
-    ContactNo: "+92987654098",
+    Condition: "Moderate",
+    Price: "42k",
+    Location: "Multan",
+    ContactNo: "+9276543098",
   },
   {
     id: 6,
-    RAM_ROM: "Snow",
-    BrandName: "Jon",
+    RAM_ROM: "8/16GB",
+    BrandName: "Vivo",
     age: 35,
-    Condition: "Good",
-    Price: "25k",
-    Location: "Islamabad",
-    ContactNo: "+92987654098",
+    Condition: "Poor",
+    Price: "15k",
+    Location: "Rawalpindi",
+    ContactNo: "+92098765438",
   },
 ];
 
@@ -95,8 +108,8 @@ const Content = () => {
   const [selectedIds, setSelectedIds] = useState([]);
 
   const handleOnCellClick = (params) => {
-    navigate("/dashboard/Create");
-    console.log("on click id ", params);
+    navigate("/dashboard/mobileDetail/" + params.id);
+    // console.log("on click id ", params);
   };
 
   const handleDeleteRecords = () => {
@@ -137,7 +150,8 @@ const Content = () => {
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection
-          // onCellClick={handleOnCellClick}
+          disableSelectionOnClick
+          onRowDoubleClick={handleOnCellClick}
         />
       </div>
     </>

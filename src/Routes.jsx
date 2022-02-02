@@ -15,7 +15,7 @@ const MyRoutes = () => (
           <Route path="login" element={<Login />} />
           <Route path="dashboard" element={<SideNavbar />}>
             <Route index element={<AdmiMainScreen />} />
-            <Route path="create" element={<Create />} />
+            <Route path="mobileDetail/:id" element={<Create />} />
           </Route>
         </Route>
       </Routes>
