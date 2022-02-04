@@ -64,7 +64,11 @@ const Create = () => {
           <div className="border border-orange flex justify-center ">
             <div className="w-1/2">
               <div className="w-full p-4 flex justify-center">
-                <h1>Create Mobile </h1>
+                {id !== "createNew" ? (
+                  <h1>Edit Mobile </h1>
+                ) : (
+                  <h1>Create Mobile </h1>
+                )}
               </div>
               {/* {console.log("formik values = ", formik.values)} */}
               <Form>

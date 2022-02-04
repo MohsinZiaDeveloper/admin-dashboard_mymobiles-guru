@@ -93,6 +93,7 @@ const Content = () => {
             Create new +
           </button>
         </div>
+
         <DataGrid
           onSelectionModelChange={(newSelectionModel) => {
             console.log("Selected checkbox ", newSelectionModel);
