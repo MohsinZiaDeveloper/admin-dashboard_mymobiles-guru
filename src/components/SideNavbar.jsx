@@ -18,8 +18,8 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
-import { Content } from ".";
 import { Outlet } from "react-router";
+import { useNavigate } from "react-router";
 
 const drawerWidth = 240;
 
@@ -118,6 +118,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const SideNavbar = (anchor) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -128,7 +129,9 @@ const SideNavbar = (anchor) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const itemClick = () => {
+    navigate("/dashboard");
+  };
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -180,7 +183,7 @@ const SideNavbar = (anchor) => {
           <List>
             {["Mobile List  "].map((text, index) => (
               <div className="mt-10">
-                <ListItem button key={text}>
+                <ListItem button key={text} onClick={itemClick}>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>

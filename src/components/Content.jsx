@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import { ImageAsset } from ".";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteMobile } from "../store/mobilesActions";
 
 const columns = [
   {
@@ -16,16 +18,14 @@ const columns = [
     field: "Condition",
     headerName: "Condition",
     type: "number",
-    width: 90,
+    width: 120,
   },
   {
     field: "Price",
     headerName: "Price",
     description: "This column has a value getter and is not sortable.",
     sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    width: 90,
   },
   { field: "Location", headerName: "Location", width: 130 },
   { field: "ContactNo", headerName: "ContactNo", width: 130 },
@@ -40,71 +40,10 @@ const columns = [
   // },
 ];
 
-const rows = [
-  {
-    id: 1,
-    RAM_ROM: "8GB",
-    BrandName: "Samsung",
-    age: 35,
-    Condition: "Good",
-    Price: "25k",
-    Location: "Islamabad",
-    ContactNo: "+92987654098",
-  },
-  {
-    id: 2,
-    RAM_ROM: "16Gb",
-    BrandName: "Oppo",
-    age: 35,
-    Condition: "Moderate",
-    Price: "25k",
-    Location: "Islamabad",
-    ContactNo: "+92987654098",
-  },
-  {
-    id: 3,
-    RAM_ROM: "8GB",
-    BrandName: "Iphone",
-    age: 35,
-    Condition: "Excellent",
-    Price: "125k",
-    Location: "Rawalpindi",
-    ContactNo: "+929098765498",
-  },
-  {
-    id: 4,
-    RAM_ROM: "4GB",
-    BrandName: "infinix",
-    age: 35,
-    Condition: "Good",
-    Price: "5k",
-    Location: "Lahore",
-    ContactNo: "+929345654098",
-  },
-  {
-    id: 5,
-    RAM_ROM: "4/8GB",
-    BrandName: "Infinix",
-    age: 35,
-    Condition: "Moderate",
-    Price: "42k",
-    Location: "Multan",
-    ContactNo: "+9276543098",
-  },
-  {
-    id: 6,
-    RAM_ROM: "8/16GB",
-    BrandName: "Vivo",
-    age: 35,
-    Condition: "Poor",
-    Price: "15k",
-    Location: "Rawalpindi",
-    ContactNo: "+92098765438",
-  },
-];
-
 const Content = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { mobileList } = useSelector((state) => state.mobiles);
   const [selectedIds, setSelectedIds] = useState([]);
 
   const handleOnCellClick = (params) => {
@@ -114,6 +53,11 @@ const Content = () => {
 
   const handleDeleteRecords = () => {
     console.log("selectedIds", selectedIds);
+    dispatch(deleteMobile(selectedIds));
+  };
+
+  const createnew = () => {
+    navigate("/dashboard/mobileDetail/createNew");
   };
 
   return (
@@ -140,12 +84,21 @@ const Content = () => {
             </Button>
           </div>
         </div>
+        <div className="w-full flex pb-3 justify-end">
+          <button
+            className="btn text-white text-xs font-light rounded-sm p-2 pl-3 pr-3 bg-orange-400 btn-dark mt-3"
+            type="submit"
+            onClick={createnew}
+          >
+            Create new +
+          </button>
+        </div>
         <DataGrid
           onSelectionModelChange={(newSelectionModel) => {
             console.log("Selected checkbox ", newSelectionModel);
             setSelectedIds(newSelectionModel);
           }}
-          rows={rows}
+          rows={mobileList}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
