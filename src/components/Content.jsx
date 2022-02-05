@@ -6,6 +6,12 @@ import { ImageAsset } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteMobile } from "../store/mobilesActions";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const columns = [
   {
     field: "id",
@@ -45,19 +51,26 @@ const Content = () => {
   const navigate = useNavigate();
   const { mobileList } = useSelector((state) => state.mobiles);
   const [selectedIds, setSelectedIds] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const handleOnCellClick = (params) => {
     navigate("/dashboard/mobileDetail/" + params.id);
-    // console.log("on click id ", params);
-  };
-
-  const handleDeleteRecords = () => {
-    console.log("selectedIds", selectedIds);
-    dispatch(deleteMobile(selectedIds));
   };
 
   const createnew = () => {
     navigate("/dashboard/mobileDetail/createNew");
+  };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const ConformDelete = () => {
+    console.log("selectedIds", selectedIds);
+    dispatch(deleteMobile(selectedIds));
+    setOpen(false);
   };
 
   return (
@@ -76,12 +89,48 @@ const Content = () => {
           <div className="w-1/2 pr-2 flex justify-end">
             <Button
               disabled={!selectedIds.length > 0}
-              onClick={handleDeleteRecords}
+              // onClick={handleDeleteRecords}
+              onClick={handleClickOpen}
             >
               {selectedIds.length > 0 && (
                 <ImageAsset className=" w-[1.5rem] h-[1.5rem] " src="Delete" />
               )}
             </Button>
+
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                <div className="flex flex-col">
+                  <div className="flex justify-center">
+                    <ImageAsset
+                      className="justify-center text-center w-[1.5rem] h-[1.5rem]"
+                      src="Delete"
+                    />
+                  </div>
+                  <div className="flex justify-center">
+                    <h1>Are you sure ?</h1>
+                  </div>
+                </div>
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  <p className="px-10">
+                    Do you want to delete this data ? <br />
+                    this data canot be restore.
+                  </p>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={ConformDelete} autoFocus>
+                  ok
+                </Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </div>
         <div className="w-full flex pb-3 justify-end">
